@@ -45,5 +45,10 @@
     $light-color: _bourbon-get-setting("contrast-switch-light-color")
   ) {
 
-  @return if(_is-light($base-color), $dark-color, $light-color);
+  @if not _is-color($dark-color) or not _is-color($light-color) {
+    @error "Either the `#{$dark-color}` or the `#{$light-color}` in the " +
+           "`contrast-switch` function is not a valid color.";
+  } @else {
+    @return if(_is-light($base-color), $dark-color, $light-color);
+  }
 }
